@@ -19,14 +19,16 @@ import ReactDOM from 'react-dom';
 import SpotifyLogin from 'react-spotify-login';
 import { clientId, redirectUri } from './settings';
 
-const onSuccess = response => console.log(response);
-const onFailure = response => console.error(response);
+const onSuccess = (response) => console.log(response);
+const onFailure = (response) => console.error(response);
 
 ReactDOM.render(
-  <SpotifyLogin clientId={clientId}
+  <SpotifyLogin
+    clientId={clientId}
     redirectUri={redirectUri}
     onSuccess={onSuccess}
-    onFailure={onFailure}/>,
+    onFailure={onFailure}
+  />,
   document.getElementById('example')
 );
 ```
@@ -88,7 +90,6 @@ Callback for successful login. An object will be passed as an argument to the ca
 `{function}`
 
 Callback for errors raised during login.
-
 
 ## Development
 

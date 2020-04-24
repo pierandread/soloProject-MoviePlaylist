@@ -4,13 +4,16 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "gallereact": "^1.1.0",
+    "jest-enzyme": "^7.1.2",
     "react": "^16.13.1",
+    "react-addons-test-utils": "^15.6.2",
+    "react-alert": "^7.0.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-spotify-login": "^0.9.1",
+    "react-test-renderer": "^16.13.1",
     "react-toastify": "^5.5.0",
     "styled-components": "^5.1.0",
     "wtf_wikipedia": "^8.1.2"
@@ -35,5 +38,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^9.5.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest-dom": "^4.0.0",
+    "react-test-render": "^1.1.2"
   }
 }
