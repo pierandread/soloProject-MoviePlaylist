@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import Movies from '../Movies/movies';
-import './search.css';
+import Movies from '../../Containers/Movies/movies';
+import './Search.css';
 import iconSearch from '../../images/Search-512.webp';
-
 
 function Search() {
   const [searching, setSearching] = useState();
@@ -10,27 +9,44 @@ function Search() {
 
   const submittingSearch = (e) => {
     e.preventDefault();
-    setTriggerSearch(triggerSearch+1);
-    return; 
-  }
+    setTriggerSearch(triggerSearch + 1);
+    return;
+  };
 
-return (
-  <div className="Search">
-    <form onSubmit = {submittingSearch}>
-      <label>Search: 
-        <input className="search" type='text' onChange = {e=> setSearching(e.target.value)}></input>
-      </label>
-      {/* <button className="searchButton" onClick={submittingSearch}>Search</button> */}
-      <img className="searchIcon" src={iconSearch} onClick={submittingSearch}></img>
-    </form>
-    {!searching && triggerSearch===0 && <p><span role='img' aria-label="up">👆</span> Search a movie up here <span role='img' aria-label="up">👆</span></p>}
-    {triggerSearch!==0 && <Movies searching = {searching} triggerSearch = {triggerSearch}/>}
+  return (
+    <div className="Search">
+      <form onSubmit={submittingSearch}>
+        <label>
+          Search:
+          <input
+            className="search"
+            type="text"
+            onChange={(e) => setSearching(e.target.value)}
+          ></input>
+        </label>
+        <img
+          className="searchIcon"
+          alt=""
+          src={iconSearch}
+          onClick={submittingSearch}
+        ></img>
+      </form>
+      {!searching && triggerSearch === 0 && (
+        <p>
+          <span role="img" aria-label="up">
+            👆
+          </span>{' '}
+          Search a movie up here{' '}
+          <span role="img" aria-label="up">
+            👆
+          </span>
+        </p>
+      )}
+      {triggerSearch !== 0 && (
+        <Movies searching={searching} triggerSearch={triggerSearch} />
+      )}
     </div>
   );
-
 }
 
 export default Search;
-
-
-

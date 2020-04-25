@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ListOfSongs from '../List of songs/ListOfSongs';
-import './singleMovie.css';
+import ListOfSongs from '../../Containers/ListOfSongs/ListOfSongs';
+import './MovieItem.css';
 
-function SingleMovie({ title, posterPath, date }) {
+function MovieItem({ title, posterPath, date }) {
   const [showPlaylist, setShowPlaylist] = useState(false);
   const showingButtonText = showPlaylist ? 'Hide Playlist' : 'Show Playlist';
 
@@ -46,4 +46,4 @@ function SingleMovie({ title, posterPath, date }) {
   );
 }
 
-export default SingleMovie;
+export default MovieItem;

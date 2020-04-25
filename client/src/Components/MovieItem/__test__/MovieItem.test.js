@@ -1,5 +1,5 @@
 import React from 'react';
-import SingleMovie from '../singleMovie';
+import MovieItem from '../MovieItem';
 import ReactDOM from 'react-dom';
 import SpotifyContext from '../../../SpotifyContext';
 
@@ -22,7 +22,7 @@ it('should take a snapshot', () => {
     <SpotifyContext.Provider
       value={{ tokenSpotify: 'DDD', spotifyUserId: 'DDD' }}
     >
-      <SingleMovie></SingleMovie>
+      <MovieItem></MovieItem>
     </SpotifyContext.Provider>
   );
   const { asFragment } = render(wrapper);
@@ -32,11 +32,11 @@ it('should take a snapshot', () => {
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<SingleMovie />, div);
+  ReactDOM.render(<MovieItem />, div);
 });
 
 it('should be defined', () => {
-  expect(SingleMovie).toBeDefined();
+  expect(MovieItem).toBeDefined();
 });
 
 it('changes text when button clicked', () => {
@@ -44,7 +44,7 @@ it('changes text when button clicked', () => {
     <SpotifyContext.Provider
       value={{ tokenSpotify: 'DDD', spotifyUserId: 'DDD' }}
     >
-      <SingleMovie></SingleMovie>
+      <MovieItem></MovieItem>
     </SpotifyContext.Provider>
   );
   const { getByText } = render(wrapper);

@@ -52,7 +52,7 @@ function Wikipedia({ title, setSongs, setArtists }) {
       })
       .then((doc) => {
         for (let section of doc.sections) {
-          if (section.title == 'Track listing') return section;
+          if (section.title === 'Track listing') return section;
         }
       })
       .then((data) => {

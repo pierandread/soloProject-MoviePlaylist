@@ -1,4 +1,4 @@
-.search{
+.search {
   display: inline-block;
   position: relative;
   left: 10px;
@@ -8,39 +8,37 @@
   padding: 10px 20px;
   border: 1px solid #b7b7b7;
   border-radius: 9px;
-  font: normal 16px/normal "Courier New", Courier, monospace;
+  font: normal 16px / normal 'Courier New', Courier, monospace;
   color: black;
   text-indent: 4px;
   -o-text-overflow: clip;
   text-overflow: clip;
-  background: rgba(252,252,252,1);
-  box-shadow: 0 0 1px 1px rgba(180,180,180,1) ;
-  box-shadow: 0 0 1px 1px rgba(180,180,180,1) ;
+  background: rgba(252, 252, 252, 1);
+  box-shadow: 0 0 1px 1px rgba(180, 180, 180, 1);
+  box-shadow: 0 0 1px 1px rgba(180, 180, 180, 1);
 }
 
-.searchIcon{
+.searchIcon {
   position: relative;
   top: 14px;
   left: 20px;
   cursor: pointer;
   border: 1px solid gray;
   border-radius: 10px;
-  box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2);
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
   width: 35px;
   height: 35px;
-
 }
 
-.searchButton:hover{
+.searchButton:hover {
   background-color: #5cbf2a;
   color: white;
 }
 
-form{
-  position:relative;
+form {
+  position: relative;
   right: 20px;
 }
-
 
 /* .searchButton{
   display: inline-block;

@@ -6,23 +6,23 @@ import { render, cleanup } from '@testing-library/react';
 import Movies from '../movies';
 
 // mocking of apiCalls
-import { getMovieList } from '../../../apiCalls';
-jest.mock('../../../apiCalls');
+import { getMovieList } from '../../../Services/apiCalls';
+jest.mock('../../../Services/apiCalls');
 const fakeMoviesPromise = Promise.resolve({
   results: [
     {
       id: '27205',
       title: 'Inception',
       poster_path: '/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg',
-      release_date: '2010-12-07'
+      release_date: '2010-12-07',
     },
     {
       id: '597',
       title: 'Titanic',
       poster_path: '/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg',
-      release_date: '1997-11-18'
-    }
-  ]
+      release_date: '1997-11-18',
+    },
+  ],
 });
 getMovieList.mockImplementation(() => fakeMoviesPromise);
 
@@ -33,13 +33,14 @@ describe('Movie component', () => {
     ReactDOM.render(<Movies />, div);
   });
   it('renders a footer message', () => {
-      const component = render(<Movies />);
-      expect(component.getByText(/No more movies/i)).toBeInTheDocument();
+    const component = render(<Movies />);
+    expect(component.getByText(/No more movies/i)).toBeInTheDocument();
   });
   it('renders each movie occurence as a SingleMovie component', async () => {
     const { container } = await render(<Movies />);
-    expect(container.getElementsByClassName('singleMovie').length)
-      .toEqual((await fakeMoviesPromise).results.length);
+    expect(container.getElementsByClassName('singleMovie').length).toEqual(
+      (await fakeMoviesPromise).results.length
+    );
   });
   it('renders the movie titles', async () => {
     const { queryByText } = await render(<Movies />);
