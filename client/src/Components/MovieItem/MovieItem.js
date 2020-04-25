@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ListOfSongs from '../../Containers/ListOfSongs/ListOfSongs';
+import ListOfSongs from '../../Containers/SongList/SongList';
 import './MovieItem.css';
 
 function MovieItem({ title, posterPath, date }) {

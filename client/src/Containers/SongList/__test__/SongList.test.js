@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ListOfSongs from './../ListOfSongs';
+import ListOfSongs from '../SongList';
 import { render, cleanup } from '@testing-library/react';
 import { TestUtils } from 'react-dom/test-utils';
-import SpotifyContext from './../../../SpotifyContext';
+import SpotifyContext from '../../../SpotifyContext';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
 afterEach(cleanup);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SpotifyButton from '../../Components/SpotifyButton/SpotifyButton';
 import Wikipedia from '../../Services/wikipedia';
-import './ListOfSongs.css';
+import './SongList.css';
 
 function ListOfSongs({ title }) {
   const [songs, setSongs] = useState();

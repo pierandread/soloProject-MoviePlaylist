@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import MovieItem from '../../Components/MovieItem/MovieItem';
 import { getMovieList } from '../../Services/apiCalls';
-import './movies.css';
+import './MovieList.css';
 
-function Movies({ searching, triggerSearch }) {
+function MovieList({ searching, triggerSearch }) {
   const [movies, setMovies] = useState();
 
   useEffect(() => {
@@ -32,4 +32,4 @@ function Movies({ searching, triggerSearch }) {
   );
 }
 
-export default Movies;
+export default MovieList;

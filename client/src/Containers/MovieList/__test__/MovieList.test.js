@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import { render, cleanup } from '@testing-library/react';
 
-import Movies from '../movies';
+import Movies from '../MovieList';
 
 // mocking of apiCalls
 import { getMovieList } from '../../../Services/apiCalls';

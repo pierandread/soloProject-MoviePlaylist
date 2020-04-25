@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Movies from '../../Containers/Movies/movies';
+import Movies from '../../Containers/MovieList/MovieList';
 import './Search.css';
 import iconSearch from '../../images/Search-512.webp';
 
