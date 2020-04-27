@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import MovieItem from '../../Components/MovieItem/MovieItem';
 import { getMovieList } from '../../Services/apiCalls';
+import { loadMoviesSuccess, loadMoviesFailure, loadMoviesRequest} from '../../Actions/loadMoviesActions';
 import './MovieList.css';
 
 function MovieList({ searching, triggerSearch }) {
@@ -32,4 +34,12 @@ function MovieList({ searching, triggerSearch }) {
   );
 }
 
-export default MovieList;
+const select = (state) => ({
+  moviesLoaded: state,
+});
+const actions = {
+setSuccess: loadMoviesSuccess,
+setFailure: loadMoviesFailure,
+setRequest: loadMoviesRequest,
+};
+export default connect(select, actions)(MovieList);
