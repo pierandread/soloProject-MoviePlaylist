@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import MovieItem from '../../Components/MovieItem/MovieItem';
 import { getMovieList } from '../../Services/apiCalls';
-import { loadMoviesSuccess, loadMoviesFailure, loadMoviesRequest} from '../../Actions/loadMoviesActions';
+import { loadMoviesSuccess, loadMoviesFailure, loadMoviesRequest } from '../../Actions/loadMoviesActions';
 import './MovieList.css';
 
 function MovieList({ searching, triggerSearch }) {
   const [movies, setMovies] = useState();
-
+  const dispatch = useDispatch();
+  const moviesLoaded = useSelector(state => state.movieList);
+  
   useEffect(() => {
-    getMovieList(searching).then((data) => setMovies(data));
+    dispatch(loadMoviesRequest());
+    getMovieList(searching)
+    .then(data => {
+      setMovies(data)
+      dispatch(loadMoviesSuccess(data));
+    })
+    .catch(err => {
+      dispatch(loadMoviesFailure(err));
+    });
   }, [triggerSearch]);
 
   return (
@@ -34,12 +44,4 @@ function MovieList({ searching, triggerSearch }) {
   );
 }
 
-const select = (state) => ({
-  moviesLoaded: state,
-});
-const actions = {
-setSuccess: loadMoviesSuccess,
-setFailure: loadMoviesFailure,
-setRequest: loadMoviesRequest,
-};
-export default connect(select, actions)(MovieList);
+export default MovieList;

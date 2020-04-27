@@ -5,6 +5,16 @@ import { render, cleanup } from '@testing-library/react';
 
 import Movies from '../MovieList';
 
+// mocking Redux Provider and store
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import allReducers from '../../../Reducers';
+const initialState = {
+  authentication: {},
+  movieList: false
+};
+const store = createStore(allReducers, initialState);
+
 // mocking of apiCalls
 import { getMovieList } from '../../../Services/apiCalls';
 jest.mock('../../../Services/apiCalls');
@@ -30,25 +40,45 @@ describe('Movie component', () => {
   afterEach(cleanup);
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Movies />, div);
+    ReactDOM.render(
+      (<Provider store={store}>
+        <Movies />
+      </Provider>)
+    , div);
   });
   it('renders a footer message', () => {
-    const component = render(<Movies />);
+    const component = render(
+      (<Provider store={store}>
+        <Movies />
+      </Provider>)
+    );
     expect(component.getByText(/No more movies/i)).toBeInTheDocument();
   });
   it('renders each movie occurence as a SingleMovie component', async () => {
-    const { container } = await render(<Movies />);
+    const { container } = await render(
+      (<Provider store={store}>
+        <Movies />
+      </Provider>)
+    );
     expect(container.getElementsByClassName('singleMovie').length).toEqual(
       (await fakeMoviesPromise).results.length
     );
   });
   it('renders the movie titles', async () => {
-    const { queryByText } = await render(<Movies />);
+    const { queryByText } = await render(
+      (<Provider store={store}>
+        <Movies />
+      </Provider>)
+    );
     expect(queryByText(/Inception/i)).toBeInTheDocument();
     expect(queryByText(/Titanic/i)).toBeInTheDocument();
   });
   it('should match snapshot', () => {
-    const component = renderer.create(<Movies />);
+    const component = renderer.create(
+      (<Provider store={store}>
+        <Movies />
+      </Provider>)
+    );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
