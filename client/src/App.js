@@ -12,7 +12,10 @@ function App() {
   const [spotifyUserId, setSpotifyUserId] = useState();
 
   if (tokenSpotify && !spotifyUserId) {
-    getSpotifyUserId(tokenSpotify).then((user) => setSpotifyUserId(user.id));
+    getSpotifyUserId(tokenSpotify).then((user) => {
+      console.log(user);
+      setSpotifyUserId(user.id);
+    });
   }
 
   console.log('APP COMPONENT');
