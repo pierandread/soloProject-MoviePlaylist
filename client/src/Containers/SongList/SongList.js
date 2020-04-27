@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SpotifyButton from '../../Components/SpotifyButton/SpotifyButton';
-import Wikipedia from '../../Services/wikipedia';
+import { getSongList } from '../../Services/wikipedia';
 import './SongList.css';
 
 function ListOfSongs({ title }) {
   const [songs, setSongs] = useState();
   const [artists, setArtists] = useState();
+
+  useEffect(() => {
+    // it should return a promise
+    getSongList(title).then((result) => {
+      setSongs(result.titles);
+      setArtists(result.artists);
+    });
+  }, [title]);
 
   if (songs && typeof songs[0] !== 'object') {
     const dbSongs = [];
@@ -23,14 +31,14 @@ function ListOfSongs({ title }) {
 
   return (
     <div className="listOfSong">
-      <Wikipedia title={title} setSongs={setSongs} setArtists={setArtists} />
+      <div className="wiki"></div>
       <ul>
         <p style={{ textAlign: 'center', marginBottom: '25px' }}>
           {title} playlist:{' '}
         </p>
         {songs &&
-          songs.map((song) => (
-            <li key={song.song}>
+          songs.map((song, index) => (
+            <li key={index}>
               {song.song} {song.artist && <span>by {song.artist}</span>}
             </li>
           ))}

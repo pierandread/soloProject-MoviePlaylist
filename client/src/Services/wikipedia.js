@@ -1,29 +1,8 @@
-import React, { useState, useEffect } from 'react';
-
-//
 const wtf = require('wtf_wikipedia');
-//
+const baseUrl = 'https://en.wikipedia.org/w/api.php';
 
-function Wikipedia({ title, setSongs, setArtists }) {
-  const [wikiUrls, setWikiUrls] = useState();
-  const [wikiUrl, setWikiUrl] = useState();
-
-  useEffect(() => {
-    fetch(url)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (response) {
-        return setWikiUrls(response[3]);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
-  let url = 'https://en.wikipedia.org/w/api.php';
-
-  let params = {
+export function getWikipedia(title) {
+  const params = {
     action: 'opensearch',
     search: title,
     limit: '50',
@@ -31,21 +10,33 @@ function Wikipedia({ title, setSongs, setArtists }) {
     format: 'json',
   };
 
-  url = url + '?origin=*';
+  let url = baseUrl + '?origin=*';
   Object.keys(params).forEach(function (key) {
     url += '&' + key + '=' + params[key];
   });
 
   const conditions = ['soundtrack', 'music', 'OST', 'Music'];
+  return fetch(url)
+    .then((res) => res.json())
+    .then((res) => {
+      const wikiUrls = res[3];
+      for (let wikiUrl of wikiUrls) {
+        if (conditions.some((el) => wikiUrl.includes(el))) {
+          return wikiUrl;
+        }
+      }
+    })
+    .catch(/*Put catch code*/);
+}
 
-  if (wikiUrls && !wikiUrl) {
-    for (let url of wikiUrls) {
-      if (conditions.some((el) => url.includes(el))) return setWikiUrl(url);
-    }
-  }
-
+export async function getSongList(title) {
+  const result = {
+    titles: [],
+    artists: [],
+  };
+  const wikiUrl = await getWikipedia(title);
   if (wikiUrl) {
-    wtf
+    return wtf
       .fetch(wikiUrl)
       .then((doc) => {
         return doc.json();
@@ -61,24 +52,13 @@ function Wikipedia({ title, setSongs, setArtists }) {
         } else return undefined;
       })
       .then((data) => {
-        let titles = [];
-        let artists = [];
         for (let key in data) {
-          if (key.includes('title')) titles.push(data[key]);
-          if (key.includes('extra')) artists.push(data[key]);
+          if (key.includes('title')) result.titles.push(data[key]);
+          if (key.includes('extra')) result.artists.push(data[key]);
         }
-        if (titles[0]) {
-          setSongs(titles);
-        }
-        if (artists[0]) {
-          setArtists(artists.slice(1));
-        }
+
+        return result;
       });
-    setWikiUrl();
-    setWikiUrls();
   }
-
-  return <div className="wiki"></div>;
+  return result;
 }
-
-export default Wikipedia;
