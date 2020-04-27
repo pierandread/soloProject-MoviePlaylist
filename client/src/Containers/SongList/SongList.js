@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyButton from '../../Components/SpotifyButton/SpotifyButton';
-import { getWikipedia, getSongList } from '../../Services/newWikipedia';
+import { getSongList } from '../../Services/newWikipedia';
 import './SongList.css';
 
 function ListOfSongs({ title }) {
@@ -13,7 +13,7 @@ function ListOfSongs({ title }) {
       setSongs(result.titles);
       setArtists(result.artists);
     });
-  }, []);
+  }, [title]);
 
   if (songs && typeof songs[0] !== 'object') {
     const dbSongs = [];
@@ -37,8 +37,8 @@ function ListOfSongs({ title }) {
           {title} playlist:{' '}
         </p>
         {songs &&
-          songs.map((song) => (
-            <li key={song.song}>
+          songs.map((song, index) => (
+            <li key={index}>
               {song.song} {song.artist && <span>by {song.artist}</span>}
             </li>
           ))}

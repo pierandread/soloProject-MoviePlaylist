@@ -1,8 +1,5 @@
 const wtf = require('wtf_wikipedia');
 
-let wikiUrls;
-let wikiUrl;
-
 const baseUrl = 'https://en.wikipedia.org/w/api.php';
 
 export function getWikipedia(title) {
@@ -18,19 +15,6 @@ export function getWikipedia(title) {
   Object.keys(params).forEach(function (key) {
     url += '&' + key + '=' + params[key];
   });
-
-  // fetch(url)
-  //   .then(function (response) {
-  //     console.log(response);
-  //     return response.json();
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //     return setWikiUrls(response[3]);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
 
   const conditions = ['soundtrack', 'music', 'OST', 'Music'];
   return fetch(url)
