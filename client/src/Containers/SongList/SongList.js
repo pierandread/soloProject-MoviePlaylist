@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyButton from '../../Components/SpotifyButton/SpotifyButton';
-import { getSongList } from '../../Services/newWikipedia';
+import { getSongList } from '../../Services/wikipedia';
 import './SongList.css';
 
 function ListOfSongs({ title }) {
@@ -31,7 +31,7 @@ function ListOfSongs({ title }) {
 
   return (
     <div className="listOfSong">
-      <div className="wiki"></div>;
+      <div className="wiki"></div>
       <ul>
         <p style={{ textAlign: 'center', marginBottom: '25px' }}>
           {title} playlist:{' '}
