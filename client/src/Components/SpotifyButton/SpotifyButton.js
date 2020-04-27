@@ -1,10 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-  createPlaylist,
-  searchSongs,
-  addSongs,
-} from '../../Services/SpotifyPlaylistFunctions';
+import SpotifyApi from '../../Services/SpotifyApi';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SpotifyButton.css';
@@ -17,13 +13,13 @@ function SpotifyButton({ title, songs }) {
   toast.configure();
 
   const magicHappening = async () => {
-    const playlist = await createPlaylist(
+    const playlist = await SpotifyApi.createPlaylist(
       auth.spotifyId,
       title,
       auth.spotifyToken
     );
-    const songIds = await searchSongs(songs, auth.spotifyToken);
-    await addSongs(songIds, playlist.id, auth.spotifyToken);
+    const songIds = await SpotifyApi.searchSongs(songs, auth.spotifyToken);
+    await SpotifyApi.addSongs(songIds, playlist.id, auth.spotifyToken);
     console.log('playlist imported successfully');
     await notify();
   };
