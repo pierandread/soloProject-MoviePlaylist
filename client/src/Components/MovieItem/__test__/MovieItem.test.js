@@ -1,29 +1,36 @@
 import React from 'react';
 import MovieItem from '../MovieItem';
 import ReactDOM from 'react-dom';
-import SpotifyContext from '../../../SpotifyContext';
 
 // import react-testing methods
 import {
   render,
-  cleanup,
-  fireEvent,
-  waitFor,
-  screen,
+  cleanup
 } from '@testing-library/react';
 
 // add custom jest matchers from jest-dom
 import '@testing-library/jest-dom/extend-expect';
 
+// mocking Redux Provider and store
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import allReducers from '../../../Reducers';
+const initialState = {
+  authentication: {
+    spotifyToken: 'DDD',
+    spotifyId: 'DDD'
+  },
+  movieList: false
+};
+const store = createStore(allReducers, initialState);
+
 afterEach(cleanup);
 
 it('should take a snapshot', () => {
   const wrapper = (
-    <SpotifyContext.Provider
-      value={{ tokenSpotify: 'DDD', spotifyUserId: 'DDD' }}
-    >
+    <Provider store={store}>
       <MovieItem></MovieItem>
-    </SpotifyContext.Provider>
+    </Provider>
   );
   const { asFragment } = render(wrapper);
 
@@ -41,11 +48,9 @@ it('should be defined', () => {
 
 it('changes text when button clicked', () => {
   const wrapper = (
-    <SpotifyContext.Provider
-      value={{ tokenSpotify: 'DDD', spotifyUserId: 'DDD' }}
-    >
+    <Provider store={store}>
       <MovieItem></MovieItem>
-    </SpotifyContext.Provider>
+    </Provider>
   );
   const { getByText } = render(wrapper);
   const button = getByText(/show playlist/i);

@@ -1,32 +1,30 @@
-import React, { useContext } from 'react';
-import SpotifyContext from '../../SpotifyContext';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import SpotifyApi from '../../Services/SpotifyApi';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './SpotifyButton.css';
 
 function SpotifyButton({ title, songs }) {
-  const spotifyUser = useContext(SpotifyContext);
+
+  const auth = useSelector(state => state.authentication);
 
   const notify = () => toast(title + ' Playlist Imported Successfully');
   toast.configure();
 
   const magicHappening = async () => {
     const playlist = await SpotifyApi.createPlaylist(
-      spotifyUser.spotifyUserId,
+      auth.spotifyId,
       title,
-      spotifyUser.tokenSpotify
+      auth.spotifyToken
     );
-    const songIds = await SpotifyApi.searchSongs(
-      songs,
-      spotifyUser.tokenSpotify
-    );
-    await SpotifyApi.addSongs(songIds, playlist.id, spotifyUser.tokenSpotify);
+    const songIds = await SpotifyApi.searchSongs(songs, auth.spotifyToken);
+    await SpotifyApi.addSongs(songIds, playlist.id, auth.spotifyToken);
     console.log('playlist imported successfully');
     await notify();
   };
 
-  if (spotifyUser.tokenSpotify === undefined) {
+  if (auth.spotifyToken === undefined) {
     return (
       <div>
         <button
