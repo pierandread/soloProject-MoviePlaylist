@@ -1,5 +1,4 @@
 const wtf = require('wtf_wikipedia');
-
 const baseUrl = 'https://en.wikipedia.org/w/api.php';
 
 export function getWikipedia(title) {
