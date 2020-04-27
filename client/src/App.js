@@ -1,31 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Header from './Components/Header/Header';
 import Logins from './Components/Logins/Logins';
 import Search from './Components/Search/Search';
-import SpotifyContext from './SpotifyContext';
 import { getSpotifyUserId } from './Services/apiCalls';
-import Header from './Components/Header/Header';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setSpotifyId } from './Actions/authenticationActions';
 import './App.css';
 
 function App() {
-  const [tokenSpotify, setTokenSpotify] = useState();
-  const [spotifyUserId, setSpotifyUserId] = useState();
+  
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.authentication);
 
-  if (tokenSpotify && !spotifyUserId) {
-    getSpotifyUserId(tokenSpotify).then((user) => setSpotifyUserId(user.id));
+  if (auth.spotifyToken && !auth.spotifyId) {
+    getSpotifyUserId(auth.spotifyToken)
+      .then((user) => dispatch(setSpotifyId(user.id)));
   }
-
-  console.log('APP COMPONENT');
 
   return (
     <div className="App">
       <Header></Header>
-      <Logins token={tokenSpotify} setTokenSpotify={setTokenSpotify}></Logins>
-      <SpotifyContext.Provider
-        value={{ tokenSpotify: tokenSpotify, spotifyUserId: spotifyUserId }}
-      >
-        <Search></Search>
-      </SpotifyContext.Provider>
+      <Logins/>
+      <Search></Search>
     </div>
   );
 }

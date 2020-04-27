@@ -1,10 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ListOfSongs from '../SongList';
 import { render, cleanup } from '@testing-library/react';
-import { TestUtils } from 'react-dom/test-utils';
-import SpotifyContext from '../../../SpotifyContext';
 import ShallowRenderer from 'react-test-renderer/shallow';
+
+// mocking Redux Provider and store
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import allReducers from '../../../Reducers';
+const initialState = {
+  authentication: {
+    spotifyToken: 'DDD',
+    spotifyId: 'DDD'
+  },
+  movieList: false
+};
+const store = createStore(allReducers, initialState);
 
 afterEach(cleanup);
 
@@ -22,11 +32,9 @@ it('renders element correctly with child components', () => {
 
 it('renders element correctly with child components', () => {
   render(
-    <SpotifyContext.Provider
-      value={{ tokenSpotify: 'DDD', spotifyUserId: 'DDD' }}
-    >
+    <Provider store={store}>
       <ListOfSongs></ListOfSongs>
-    </SpotifyContext.Provider>
+    </Provider>
   );
 });
 

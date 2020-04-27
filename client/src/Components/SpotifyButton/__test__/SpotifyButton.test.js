@@ -1,8 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import SpotifyButton from './../SpotifyButton';
 import { render, cleanup } from '@testing-library/react';
-import SpotifyContext from './../../../SpotifyContext';
+
+// mocking Redux Provider and store
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import allReducers from '../../../Reducers';
+const initialState = {
+  authentication: {
+    spotifyToken: 'ytruitigfiu',
+    spotifyId: 'Mick Jagger'
+  },
+  movieList: false
+};
+const store = createStore(allReducers, initialState);
 
 afterEach(cleanup);
 
@@ -12,11 +23,9 @@ it('should be defined', () => {
 
 it('renders element correctly', () => {
   const tree = (
-    <SpotifyContext.Provider
-      value={{ tokenSpotify: 'ytruitigfiu', spotifyUserId: 'Mick Jagger' }}
-    >
+    <Provider store={store}>
       <SpotifyButton />
-    </SpotifyContext.Provider>
+    </Provider>
   );
   render(tree);
 });
