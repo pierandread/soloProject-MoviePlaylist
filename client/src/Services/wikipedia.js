@@ -47,7 +47,7 @@ export async function getSongList(title) {
         }
       })
       .then((data) => {
-        if (data.templates) {
+        if (data?.templates) {
           return data.templates[0];
         } else return undefined;
       })
