@@ -1,6 +1,110 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Movie component should match snapshot 1`] = `
+exports[`Movie component should match snapshot (when there are movies) 1`] = `
+<div>
+  <div
+    className="movies"
+  >
+    <div
+      className="singleMovie"
+    >
+      <div
+        style={
+          Object {
+            "marginBottom": "30px",
+          }
+        }
+      >
+        <span>
+          <p
+            style={
+              Object {
+                "fontStyle": "Courier New",
+                "fontWeight": "bold",
+                "height": "70px",
+                "marginBottom": "30px",
+                "marginLeft": "50px",
+                "width": "200px",
+              }
+            }
+          >
+             
+            Inception
+          </p>
+        </span>
+        <img
+          alt="movie post"
+          src="http://image.tmdb.org/t/p/w200/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg"
+          style={
+            Object {
+              "height": "300px",
+              "width": "200px",
+            }
+          }
+        />
+        <button
+          className="playlistButton"
+          onClick={[Function]}
+        >
+          Show Playlist
+        </button>
+      </div>
+    </div>
+    <div
+      className="singleMovie"
+    >
+      <div
+        style={
+          Object {
+            "marginBottom": "30px",
+          }
+        }
+      >
+        <span>
+          <p
+            style={
+              Object {
+                "fontStyle": "Courier New",
+                "fontWeight": "bold",
+                "height": "70px",
+                "marginBottom": "30px",
+                "marginLeft": "50px",
+                "width": "200px",
+              }
+            }
+          >
+             
+            Titanic
+          </p>
+        </span>
+        <img
+          alt="movie post"
+          src="http://image.tmdb.org/t/p/w200/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg"
+          style={
+            Object {
+              "height": "300px",
+              "width": "200px",
+            }
+          }
+        />
+        <button
+          className="playlistButton"
+          onClick={[Function]}
+        >
+          Show Playlist
+        </button>
+      </div>
+    </div>
+  </div>
+  <p
+    className="no-movies"
+  >
+    No more movies, if your movie is not in the list try another search
+  </p>
+</div>
+`;
+
+exports[`Movie component should match snapshot (when there are no movies) 1`] = `
 <div>
   <div
     className="movies"

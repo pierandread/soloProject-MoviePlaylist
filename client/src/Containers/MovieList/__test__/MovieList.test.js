@@ -5,21 +5,7 @@ import { render, cleanup } from '@testing-library/react';
 
 import Movies from '../MovieList';
 
-// mocking Redux Provider and store
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import allReducers from '../../../Reducers';
-const initialState = {
-  authentication: {},
-  movieList: false
-};
-const store = createStore(allReducers, initialState);
-
-// mocking of apiCalls
-import { getMovieList } from '../../../Services/apiCalls';
-jest.mock('../../../Services/apiCalls');
-const fakeMoviesPromise = Promise.resolve({
-  results: [
+const movies = [
     {
       id: '27205',
       title: 'Inception',
@@ -31,53 +17,48 @@ const fakeMoviesPromise = Promise.resolve({
       title: 'Titanic',
       poster_path: '/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg',
       release_date: '1997-11-18',
-    },
-  ],
-});
-getMovieList.mockImplementation(() => fakeMoviesPromise);
+    }
+  ];
 
 describe('Movie component', () => {
   afterEach(cleanup);
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(
-      (<Provider store={store}>
-        <Movies />
-      </Provider>)
+      <Movies movies={movies}/>
     , div);
   });
   it('renders a footer message', () => {
     const component = render(
-      (<Provider store={store}>
-        <Movies />
-      </Provider>)
+      <Movies movies={movies}/>
     );
     expect(component.getByText(/No more movies/i)).toBeInTheDocument();
   });
   it('renders each movie occurence as a SingleMovie component', async () => {
     const { container } = await render(
-      (<Provider store={store}>
-        <Movies />
-      </Provider>)
+      <Movies movies={movies}/>
     );
     expect(container.getElementsByClassName('singleMovie').length).toEqual(
-      (await fakeMoviesPromise).results.length
+      movies.length
     );
   });
   it('renders the movie titles', async () => {
     const { queryByText } = await render(
-      (<Provider store={store}>
-        <Movies />
-      </Provider>)
+      <Movies movies={movies}/>
     );
     expect(queryByText(/Inception/i)).toBeInTheDocument();
     expect(queryByText(/Titanic/i)).toBeInTheDocument();
   });
-  it('should match snapshot', () => {
+  it('should match snapshot (when there are no movies)', () => {
     const component = renderer.create(
-      (<Provider store={store}>
-        <Movies />
-      </Provider>)
+      <Movies movies={[]}/>
+    );
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  it('should match snapshot (when there are movies)', () => {
+    const component = renderer.create(
+      <Movies movies={movies}/>
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
