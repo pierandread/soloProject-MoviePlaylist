@@ -5,11 +5,7 @@ import { render, cleanup } from '@testing-library/react';
 
 import Movies from '../MovieList';
 
-// mocking of apiCalls
-import { getMovieList } from '../../../Services/apiCalls';
-jest.mock('../../../Services/apiCalls');
-const fakeMoviesPromise = Promise.resolve({
-  results: [
+const movies = [
     {
       id: '27205',
       title: 'Inception',
@@ -21,34 +17,49 @@ const fakeMoviesPromise = Promise.resolve({
       title: 'Titanic',
       poster_path: '/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg',
       release_date: '1997-11-18',
-    },
-  ],
-});
-getMovieList.mockImplementation(() => fakeMoviesPromise);
+    }
+  ];
 
 describe('Movie component', () => {
   afterEach(cleanup);
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Movies />, div);
+    ReactDOM.render(
+      <Movies movies={movies}/>
+    , div);
   });
   it('renders a footer message', () => {
-    const component = render(<Movies />);
+    const component = render(
+      <Movies movies={movies}/>
+    );
     expect(component.getByText(/No more movies/i)).toBeInTheDocument();
   });
   it('renders each movie occurence as a SingleMovie component', async () => {
-    const { container } = await render(<Movies />);
+    const { container } = await render(
+      <Movies movies={movies}/>
+    );
     expect(container.getElementsByClassName('singleMovie').length).toEqual(
-      (await fakeMoviesPromise).results.length
+      movies.length
     );
   });
   it('renders the movie titles', async () => {
-    const { queryByText } = await render(<Movies />);
+    const { queryByText } = await render(
+      <Movies movies={movies}/>
+    );
     expect(queryByText(/Inception/i)).toBeInTheDocument();
     expect(queryByText(/Titanic/i)).toBeInTheDocument();
   });
-  it('should match snapshot', () => {
-    const component = renderer.create(<Movies />);
+  it('should match snapshot (when there are no movies)', () => {
+    const component = renderer.create(
+      <Movies movies={[]}/>
+    );
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+  it('should match snapshot (when there are movies)', () => {
+    const component = renderer.create(
+      <Movies movies={movies}/>
+    );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

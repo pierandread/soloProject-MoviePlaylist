@@ -1,50 +1,62 @@
 import React, { useState } from 'react';
 import Movies from '../../Containers/MovieList/MovieList';
+import { getMovieList } from '../../Services/apiCalls';
 import './Search.css';
 import iconSearch from '../../images/Search-512.webp';
 
 function Search() {
-  const [searching, setSearching] = useState();
-  const [triggerSearch, setTriggerSearch] = useState(0);
-
-  const submittingSearch = (e) => {
+  const [inputSearch, setInputSearch] = useState('');
+  const [movies, setMovies] = useState([]);
+  
+  const submitSearch = (e) => {
     e.preventDefault();
-    setTriggerSearch(triggerSearch + 1);
-    return;
+    search(inputSearch);
   };
+
+  const searchOnChange = (e) => {
+    const input = e.target.value;
+    setInputSearch(input);
+    search(input);
+  };
+  
+  const search = (keywords) => {
+    if (keywords) {
+      getMovieList(keywords)
+        .then(data => {
+          setMovies(data.results)
+        })
+        .catch(err => {
+          console.log('no movies found');
+        });
+    } else setMovies([]);
+  }
 
   return (
     <div className="Search">
-      <form onSubmit={submittingSearch}>
+      <form onSubmit={submitSearch}>
         <label>
           Search:
-          <input
-            className="search"
-            type="text"
-            onChange={(e) => setSearching(e.target.value)}
-          ></input>
+          <input className="search" type="text"
+            value={inputSearch}
+            onChange={searchOnChange}
+          />
         </label>
-        <img
-          className="searchIcon"
-          alt=""
+        <img className="searchIcon" alt=""
           src={iconSearch}
-          onClick={submittingSearch}
-        ></img>
+          onClick={submitSearch}
+        />
       </form>
-      {!searching && triggerSearch === 0 && (
+      {
+        !inputSearch &&
         <p>
-          <span role="img" aria-label="up">
-            👆
-          </span>{' '}
-          Search a movie up here{' '}
-          <span role="img" aria-label="up">
-            👆
-          </span>
+          <span role="img" aria-label="up">👆</span>
+          {' '}Search a movie up here{' '}
+          <span role="img" aria-label="up">👆</span>
         </p>
-      )}
-      {triggerSearch !== 0 && (
-        <Movies searching={searching} triggerSearch={triggerSearch} />
-      )}
+      }
+      {
+        movies.length > 0 && <Movies movies={ movies }/>
+      }
     </div>
   );
 }
