@@ -5,9 +5,11 @@
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/user-event": "^7.2.1",
+    "dotenv": "^8.2.0",
     "fetch-mock": "^9.4.0",
     "gallereact": "^1.1.0",
     "jest-enzyme": "^7.1.2",
+    "passport-spotify": "^1.1.0",
     "react": "^16.13.1",
     "react-addons-test-utils": "^15.6.2",
     "react-alert": "^7.0.0",
