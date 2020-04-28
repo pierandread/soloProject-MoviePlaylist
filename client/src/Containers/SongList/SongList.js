@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyButton from '../../Components/SpotifyButton/SpotifyButton';
 import { getSongList } from '../../Services/wikipedia';
+import Spinner from 'react-bootstrap/Spinner';
 import './SongList.css';
 
 function ListOfSongs({ title }) {
@@ -42,7 +43,7 @@ function ListOfSongs({ title }) {
                 {song.song} {song.artist && <span>by {song.artist}</span>}
               </li>)
             : <p className="noPlaylist">No playlist yet! We are working on it, stay tuned!</p>
-          : <p className="noPlaylist">Loading</p>
+          : <Spinner animation="border" />
         }
       </ul>
       <SpotifyButton title={title} songs={songs} />
