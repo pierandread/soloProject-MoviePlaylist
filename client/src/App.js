@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Components/Header/Header';
 import Logins from './Components/Logins/Logins';
 import Search from './Components/Search/Search';
-import { getSpotifyUserId } from './Services/apiCalls';
+import SpotifyApi from './Services/SpotifyApi';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSpotifyId } from './Actions/authenticationActions';
 import './App.css';
@@ -13,7 +13,7 @@ function App() {
   const auth = useSelector(state => state.authentication);
 
   if (auth.spotifyToken && !auth.spotifyId) {
-    getSpotifyUserId(auth.spotifyToken)
+    SpotifyApi.getSpotifyUserId(auth.spotifyToken)
       .then((user) => dispatch(setSpotifyId(user.id)));
   }
 
