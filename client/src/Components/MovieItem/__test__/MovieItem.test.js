@@ -1,12 +1,10 @@
 import React from 'react';
 import MovieItem from '../MovieItem';
 import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
 
 // import react-testing methods
-import {
-  render,
-  cleanup
-} from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 
 // add custom jest matchers from jest-dom
 import '@testing-library/jest-dom/extend-expect';
@@ -18,9 +16,9 @@ import allReducers from '../../../Reducers';
 const initialState = {
   authentication: {
     spotifyToken: 'DDD',
-    spotifyId: 'DDD'
+    spotifyId: 'DDD',
   },
-  movieList: false
+  movieList: false,
 };
 const store = createStore(allReducers, initialState);
 
@@ -46,6 +44,15 @@ it('should be defined', () => {
   expect(MovieItem).toBeDefined();
 });
 
+it('has a title', () => {
+  const { getByTestId } = render(
+    <Provider store={store}>
+      <MovieItem />
+    </Provider>
+  );
+  expect(getByTestId('title').textContent).toBeInTheDocument;
+});
+
 it('changes text when button clicked', () => {
   const wrapper = (
     <Provider store={store}>
@@ -59,5 +66,3 @@ it('changes text when button clicked', () => {
   button.click();
   expect(button).toHaveTextContent(/hide playlist/i);
 });
-
-it('hides the playlist when button clicked', () => {});
