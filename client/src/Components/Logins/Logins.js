@@ -19,7 +19,6 @@ function Logins() {
     const token = new URLSearchParams(queryStr).get('token');
     const user = new URLSearchParams(queryStr).get('user');
     console.log(token);
-    // window.location.href = 'http://localhost:3000';
     if (token && user) {
       dispatch(setSpotifyToken(token));
       dispatch(setSpotifyId(user));
