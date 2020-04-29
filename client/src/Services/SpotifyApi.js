@@ -32,6 +32,42 @@ export default {
     return await ApiHelpers.fetchRequest(url, options);
   },
 
+  searchAlbum: async (movieTitle, token) => {
+    const url = `${BASE_URL}/search` +
+      `?q=album:${movieTitle}+soundtrack` +
+      `&type=album,playlist` +
+      `&market=from_token`;
+    const options = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      Accept: 'application/json',
+    };
+    const res = await ApiHelpers.fetchRequest(url, options);
+    const album = res.albums.items[0];
+    const playlist = res.playlists.items[0];
+    let songs = [];
+    if (album) {
+      const albumUrl = `${BASE_URL}/albums/${album.id}/tracks` +
+      `?limit=50`;
+      const songsRes = await ApiHelpers.fetchRequest(albumUrl, options);
+      if (songsRes) songs = songsRes.items;
+    } else if (playlist) {
+      const playlistUrl = `${BASE_URL}/playlists/${playlist.id}/tracks` +
+      `?limit=50`;
+      const songsRes = await ApiHelpers.fetchRequest(playlistUrl, options);
+      if (songsRes) songs = songsRes.items;
+    }
+    return songs.map(song => ({
+      song: song.name,
+      artist: song.artists.map(artist => artist.name).join(', '),
+      id: song.id
+    }));
+  },
+
   searchSongs: async (songs, token) => {
     if (!songs) return;
     async function asyncForEach(array, callback) {
