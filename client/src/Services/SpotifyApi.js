@@ -46,20 +46,24 @@ export default {
       },
       Accept: 'application/json',
     };
-    const res = await ApiHelpers.fetchRequest(url, options);
     let songs = [];
-    if (res.albums && res.albums.items && res.albums.items[0]) {
-      const album = res.albums.items[0];
-      const albumUrl = `${BASE_URL}/albums/${album.id}/tracks` +
-      `?limit=50`;
-      const songsRes = await ApiHelpers.fetchRequest(albumUrl, options);
-      if (songsRes) songs = songsRes.items;
-    } else if (res.playlists && res.playlists.items && res.playlists.items[0]) {
-      const playlist = res.playlists.items[0];
-      const playlistUrl = `${BASE_URL}/playlists/${playlist.id}/tracks` +
-      `?limit=50`;
-      const songsRes = await ApiHelpers.fetchRequest(playlistUrl, options);
-      if (songsRes) songs = songsRes.items;
+    try {
+      const res = await ApiHelpers.fetchRequest(url, options);
+      if (res.albums && res.albums.items && res.albums.items[0]) {
+        const album = res.albums.items[0];
+        const albumUrl = `${BASE_URL}/albums/${album.id}/tracks` +
+        `?limit=50`;
+        const songsRes = await ApiHelpers.fetchRequest(albumUrl, options);
+        if (songsRes) songs = songsRes.items;
+      } else if (res.playlists && res.playlists.items && res.playlists.items[0]) {
+        const playlist = res.playlists.items[0];
+        const playlistUrl = `${BASE_URL}/playlists/${playlist.id}/tracks` +
+        `?limit=50`;
+        const songsRes = await ApiHelpers.fetchRequest(playlistUrl, options);
+        if (songsRes) songs = songsRes.items;
+      }
+    } catch (err) {
+      return [];
     }
     return songs.map(song => ({
       song: song.name,
