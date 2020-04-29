@@ -23,6 +23,7 @@ function MovieItem({ title, posterPath, date }) {
               fontStyle: 'Courier New',
               marginLeft: '50px',
             }}
+            data-testid="title"
           >
             {' '}
             {title}
