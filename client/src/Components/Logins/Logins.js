@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import SpotifyLogin from './react-spotify-login/src/SpotifyLogin';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSpotifyToken } from '../../Actions/authenticationActions';
 import './logins.css';
@@ -8,10 +7,6 @@ function Logins() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.authentication);
   const loginURL = 'http://localhost:3001/login';
-  const onSuccessSpotify = (response) =>
-    dispatch(setSpotifyToken(response.access_token));
-
-  const onFailureSpotify = (response) => console.error(response);
 
   const loginAgain = () => dispatch(setSpotifyToken(''));
 
@@ -27,12 +22,9 @@ function Logins() {
   return (
     <div className="Logins">
       {!auth.spotifyToken && (
-        <SpotifyLogin
-          clientId={process.env.REACT_APP_SPOTIFY_ID}
-          redirectUri="http://localhost:3000/"
-          onSuccess={onSuccessSpotify}
-          onFailure={onFailureSpotify}
-        />
+        <a href={loginURL} target="_blank" rel="noopener noreferrer">
+          Click here to Login
+        </a>
       )}
       {auth.spotifyToken && (
         <button className="loginButton" onClick={loginAgain}>
@@ -47,10 +39,6 @@ function Logins() {
           </span>
         </p>
       )}
-
-      <a href={loginURL} target="_blank" rel="noopener noreferrer">
-        Click here!!
-      </a>
     </div>
   );
 }
