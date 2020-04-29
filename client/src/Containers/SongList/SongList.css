@@ -1,5 +1,4 @@
-.listOfSong{
-  margin-top:50px;
+.listOfSong {
   margin: 0;
   max-width: 347px;
   text-align: left;
@@ -7,15 +6,19 @@
   /* font: normal 18px/normal "Times New Roman", Courier, monospace; */
 }
 
-ul{
-  padding:0px;
+.listOfSong ul {
+  list-style-type: none;
+  padding: 0px;
 }
 
-li{
+li {
   margin-bottom: 5px;
-  font: normal 18px/normal "Times New Roman", Courier, monospace;
+  font-size: 12px;
 }
 
-.noPlaylist{
-  font: normal 18px/normal "Times New Roman", Courier, monospace;
+.noPlaylist {
+}
+
+.listOfSong p {
+  font-size: 14px;
 }

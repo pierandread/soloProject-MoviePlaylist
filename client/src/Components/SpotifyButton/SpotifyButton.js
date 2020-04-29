@@ -6,8 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './SpotifyButton.css';
 
 function SpotifyButton({ title, songs }) {
-
-  const auth = useSelector(state => state.authentication);
+  const auth = useSelector((state) => state.authentication);
 
   const notify = () => toast(title + ' Playlist Imported Successfully');
   toast.configure();
@@ -29,7 +28,6 @@ function SpotifyButton({ title, songs }) {
       <div>
         <button
           className="spotifyButton"
-          style={{ left: '30px' }}
           onClick={() => {
             alert('Login Required!');
           }}
@@ -43,11 +41,7 @@ function SpotifyButton({ title, songs }) {
 
   return (
     <div>
-      <button
-        className="spotifyButton"
-        style={{ left: '60px' }}
-        onClick={magicHappening}
-      >
+      <button className="spotifyButton" onClick={magicHappening}>
         {' '}
         Import playlist <br /> on Spotify
       </button>
