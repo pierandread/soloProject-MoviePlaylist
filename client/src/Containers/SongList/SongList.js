@@ -9,23 +9,9 @@ function ListOfSongs({ title }) {
   const [songsLoaded, setSongsLoaded] = useState(false);
 
   useEffect(() => {
-    getSongList(title).then((result) => {
-      const songs = result.titles;
-      const artists = result.artists;
-      if (songs && typeof songs[0] !== 'object') {
-        const dbSongs = [];
-        if (artists) {
-          for (let i = 0; i < songs.length; i++) {
-            dbSongs[i] = { song: songs[i], artist: artists[i] };
-          }
-        } else {
-          for (let i = 0; i < songs.length; i++) {
-            dbSongs[i] = { song: songs[i], artist: undefined };
-          }
-        }
-        setSongs(dbSongs);
-        setSongsLoaded(true);
-      }
+    getSongList(title).then((songs) => {
+      setSongs(songs);
+      setSongsLoaded(true);
     });
   }, [title]);
 
