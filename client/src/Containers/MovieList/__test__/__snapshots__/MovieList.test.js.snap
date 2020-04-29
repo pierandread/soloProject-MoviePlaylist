@@ -17,6 +17,7 @@ exports[`Movie component should match snapshot (when there are movies) 1`] = `
       >
         <span>
           <p
+            data-testid="title"
             style={
               Object {
                 "fontStyle": "Courier New",
@@ -62,6 +63,7 @@ exports[`Movie component should match snapshot (when there are movies) 1`] = `
       >
         <span>
           <p
+            data-testid="title"
             style={
               Object {
                 "fontStyle": "Courier New",
