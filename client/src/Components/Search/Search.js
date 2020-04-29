@@ -50,17 +50,8 @@ function Search() {
           onClick={submitSearch}
         />
       </form>
-      {!inputSearch && (
-        <p>
-          <span role="img" aria-label="up">
-            👆
-          </span>{' '}
-          Search a movie up here{' '}
-          <span role="img" aria-label="up">
-            👆
-          </span>
-        </p>
-      )}
+
+      {!inputSearch && <p> Search a movie up here </p>}
       {movies.length > 0 && <Movies movies={movies} />}
     </div>
   );
