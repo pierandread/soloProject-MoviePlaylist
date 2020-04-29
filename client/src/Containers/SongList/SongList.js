@@ -35,7 +35,7 @@ function ListOfSongs({ title }) {
           <Spinner animation="border" />
         )}
       </ul>
-      <SpotifyButton title={title} songs={songs} />
+      {songs.length > 0 && <SpotifyButton title={title} songs={songs} />}
     </div>
   );
 }
