@@ -7,7 +7,7 @@ import iconSearch from '../../images/Search-512.webp';
 function Search() {
   const [inputSearch, setInputSearch] = useState('');
   const [movies, setMovies] = useState([]);
-  
+
   const submitSearch = (e) => {
     e.preventDefault();
     search(inputSearch);
@@ -18,45 +18,40 @@ function Search() {
     setInputSearch(input);
     search(input);
   };
-  
+
   const search = (keywords) => {
     if (keywords) {
       getMovieList(keywords)
-        .then(data => {
-          setMovies(data.results)
+        .then((data) => {
+          setMovies(data.results);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('no movies found');
         });
     } else setMovies([]);
-  }
+  };
 
   return (
     <div className="Search">
       <form onSubmit={submitSearch}>
         <label>
           Search:
-          <input className="search" type="text"
+          <input
+            className="search"
+            type="text"
             value={inputSearch}
             onChange={searchOnChange}
           />
         </label>
-        <img className="searchIcon" alt=""
+        <img
+          className="searchIcon"
+          alt=""
           src={iconSearch}
           onClick={submitSearch}
         />
       </form>
-      {
-        !inputSearch &&
-        <p>
-          <span role="img" aria-label="up">👆</span>
-          {' '}Search a movie up here{' '}
-          <span role="img" aria-label="up">👆</span>
-        </p>
-      }
-      {
-        movies.length > 0 && <Movies movies={ movies }/>
-      }
+      {!inputSearch && <p> Search a movie up here </p>}
+      {movies.length > 0 && <Movies movies={movies} />}
     </div>
   );
 }
