@@ -1,8 +1,19 @@
 import ApiHelpers from './ApiHelpers';
 
+const BASE_URL = 'https://api.spotify.com/v1';
+
 export default {
+  getSpotifyUserId: async (token) => {
+    const options = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    return await ApiHelpers.fetchRequest(`${BASE_URL}/me`, options);
+  },
+
   createPlaylist: async (userId, movieTitle, token) => {
-    const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
+    const url = `${BASE_URL}/users/${userId}/playlists`;
     const bodyOption = {
       name: `${movieTitle} SoundTrack`,
       public: false,
@@ -18,8 +29,43 @@ export default {
       Accept: 'application/json',
       body: JSON.stringify(bodyOption),
     };
+    return await ApiHelpers.fetchRequest(url, options);
+  },
 
-    return ApiHelpers.fetchRequest(url, options);
+  searchAlbum: async (movieTitle, token) => {
+    const url = `${BASE_URL}/search` +
+      `?q=album:${movieTitle}+soundtrack` +
+      `&type=album,playlist` +
+      `&market=from_token`;
+    const options = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      Accept: 'application/json',
+    };
+    const res = await ApiHelpers.fetchRequest(url, options);
+    const album = res.albums.items[0];
+    const playlist = res.playlists.items[0];
+    let songs = [];
+    if (album) {
+      const albumUrl = `${BASE_URL}/albums/${album.id}/tracks` +
+      `?limit=50`;
+      const songsRes = await ApiHelpers.fetchRequest(albumUrl, options);
+      if (songsRes) songs = songsRes.items;
+    } else if (playlist) {
+      const playlistUrl = `${BASE_URL}/playlists/${playlist.id}/tracks` +
+      `?limit=50`;
+      const songsRes = await ApiHelpers.fetchRequest(playlistUrl, options);
+      if (songsRes) songs = songsRes.items;
+    }
+    return songs.map(song => ({
+      song: song.name,
+      artist: song.artists.map(artist => artist.name).join(', '),
+      id: song.id
+    }));
   },
 
   searchSongs: async (songs, token) => {
@@ -33,11 +79,11 @@ export default {
     await asyncForEach(songs, async (song) => {
       let url = '';
       if (song.artist) {
-        url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
+        url = `${BASE_URL}/search?q=${encodeURIComponent(
           song.song
         )}%20artist:${encodeURIComponent(song.artist)}&type=track&limit=10`;
       } else {
-        url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
+        url = `${BASE_URL}/search?q=${encodeURIComponent(
           song.song
         )}&type=track&limit=10`;
       }
@@ -61,7 +107,7 @@ export default {
     if (!songsId) return;
     let queryWithoutId = 'spotify:track:';
     let query = songsId.map((id) => `${queryWithoutId + id}`).join();
-    const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${encodeURIComponent(
+    const url = `${BASE_URL}/playlists/${playlistId}/tracks?uris=${encodeURIComponent(
       query
     )}`;
     const options = {
@@ -73,6 +119,6 @@ export default {
       },
       Accept: 'application/json',
     };
-    return ApiHelpers.fetchRequest(url, options);
+    return await ApiHelpers.fetchRequest(url, options);
   },
 };
