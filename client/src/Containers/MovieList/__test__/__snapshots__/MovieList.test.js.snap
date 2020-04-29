@@ -17,16 +17,7 @@ exports[`Movie component should match snapshot (when there are movies) 1`] = `
       >
         <span>
           <p
-            style={
-              Object {
-                "fontStyle": "Courier New",
-                "fontWeight": "bold",
-                "height": "70px",
-                "marginBottom": "30px",
-                "marginLeft": "50px",
-                "width": "200px",
-              }
-            }
+            data-testid="title"
           >
              
             Inception
@@ -62,16 +53,7 @@ exports[`Movie component should match snapshot (when there are movies) 1`] = `
       >
         <span>
           <p
-            style={
-              Object {
-                "fontStyle": "Courier New",
-                "fontWeight": "bold",
-                "height": "70px",
-                "marginBottom": "30px",
-                "marginLeft": "50px",
-                "width": "200px",
-              }
-            }
+            data-testid="title"
           >
              
             Titanic

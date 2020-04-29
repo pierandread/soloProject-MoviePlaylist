@@ -26,7 +26,7 @@ function SpotifyButton({ title, songs }) {
   if (auth.spotifyToken === undefined) {
     return (
       <div>
-        <button
+        {/* <button
           className="spotifyButton"
           onClick={() => {
             alert('Login Required!');
@@ -34,7 +34,7 @@ function SpotifyButton({ title, songs }) {
         >
           {' '}
           LogIn to your Spotify <br /> account.
-        </button>
+        </button> */}
       </div>
     );
   }
