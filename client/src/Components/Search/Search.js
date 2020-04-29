@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Movies from '../../Containers/MovieList/MovieList';
-import { getMovieList } from '../../Services/TMDBapi';
+import { getMovieList } from '../../Services/TMDBApi';
 import './Search.css';
 import iconSearch from '../../images/Search-512.webp';
 
