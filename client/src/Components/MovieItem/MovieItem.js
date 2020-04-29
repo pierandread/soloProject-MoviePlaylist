@@ -14,20 +14,7 @@ function MovieItem({ title, posterPath, date }) {
     <div className="singleMovie">
       <div style={{ marginBottom: '30px' }}>
         <span>
-          <p
-            style={{
-              width: '200px',
-              height: '70px',
-              marginBottom: '30px',
-              fontWeight: 'bold',
-              fontStyle: 'Courier New',
-              marginLeft: '50px',
-            }}
-            data-testid="title"
-          >
-            {' '}
-            {title}
-          </p>
+          <p data-testid="title"> {title}</p>
         </span>
         <img
           style={{ width: '200px', height: '300px' }}

@@ -17,20 +17,23 @@ function ListOfSongs({ title }) {
 
   return (
     <div className="listOfSong">
+      <p>{title} playlist: </p>
       <ul>
-        <p style={{ textAlign: 'center', marginBottom: '25px' }}>
-          {title} playlist:{' '}
-        </p>
-        {
-          songsLoaded
-          ? songs.length > 0
-            ? songs.map((song, index) =>
+        {songsLoaded ? (
+          songs.length > 0 ? (
+            songs.map((song, index) => (
               <li key={index}>
-                {song.song} {song.artist && <span>by {song.artist}</span>}
-              </li>)
-            : <p className="noPlaylist">No playlist yet! We are working on it, stay tuned!</p>
-          : <Spinner animation="border" />
-        }
+                - {song.song} {song.artist && <span>by {song.artist}</span>}
+              </li>
+            ))
+          ) : (
+            <p className="noPlaylist">
+              No playlist yet! We are working on it, stay tuned!
+            </p>
+          )
+        ) : (
+          <Spinner animation="border" />
+        )}
       </ul>
       <SpotifyButton title={title} songs={songs} />
     </div>
