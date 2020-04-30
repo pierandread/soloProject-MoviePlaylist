@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import SpotifyApi from '../../Services/SpotifyApi';
 import { toast } from 'react-toastify';
+import Logins from '../Logins/Logins';
+import Button from 'react-bootstrap/Button';
 import 'react-toastify/dist/ReactToastify.css';
 import './SpotifyButton.css';
 
@@ -23,29 +25,23 @@ function SpotifyButton({ title, songs }) {
     await notify();
   };
 
-  if (auth.spotifyToken === undefined) {
-    return (
-      <div>
-        {/* <button
-          className="spotifyButton"
-          onClick={() => {
-            alert('Login Required!');
-          }}
+  return (
+    auth.spotifyToken
+    ? <div>
+        <Button className="spotifyButton"
+        onClick={magicHappening}
+        variant="outline-primary"
         >
           {' '}
-          LogIn to your Spotify <br /> account.
-        </button> */}
+          Import playlist <br /> on Spotify
+        </Button>
       </div>
-    );
-  }
-
-  return (
-    <div>
-      <button className="spotifyButton" onClick={magicHappening}>
-        {' '}
-        Import playlist <br /> on Spotify
-      </button>
-    </div>
+    : <Logins />
+      // <button
+      //   className="spotifyButton" onClick={() => {alert('Login Required!');}}>
+      //   {' '}
+      //   Login to your Spotify <br /> account.
+      // </button>
   );
 }
 

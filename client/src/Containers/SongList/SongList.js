@@ -29,7 +29,6 @@ function ListOfSongs({ title }) {
 
   return (
     <div className="listOfSong">
-      <p>{title} playlist: </p>
       <ul>
         {songsLoaded ? (
           songs.length > 0 ? (
@@ -40,7 +39,7 @@ function ListOfSongs({ title }) {
             ))
           ) : (
             <p className="noPlaylist">
-              No playlist yet! We are working on it, stay tuned!
+              No playlist found.
             </p>
           )
         ) : (
