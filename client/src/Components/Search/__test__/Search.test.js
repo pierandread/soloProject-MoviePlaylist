@@ -14,21 +14,31 @@ describe ('Search component', () => {
     ReactDOM.render(<Search />, div);
   });
 
-  it ('should show search instructions when nothing has been typed', () => {
-    const component = render(<Search />);
-    expect(component.getByText(/Search a movie/i)).toBeInTheDocument();
+  it ('should show search instructions inside input', () => {
+      let component;
+      act(() => {
+        component = renderer.create(<Search />);
+      });
+      const instance = component.root;
+      const input = instance.findByType('input');
+      expect(input.props.placeholder).toEqual(expect.stringMatching(/Search/i));
   });
 
-  it ('should NOT show search instructions when something has been typed', () => {
-    let component;
-    act(() => {
-      component = renderer.create(<Search />);
-    });
-    const instance = component.root;
-    const input = instance.findByType('input');
-    expect(instance.findAllByType('p').length).toBe(1);
-    input.props.onChange({target: { value: 'avengers' }});
-    expect(instance.findAllByType('p').length).toBe(0);
-  });
+  // it ('should show search instructions when nothing has been typed', () => {
+  //   const component = render(<Search />);
+  //   expect(component.getByText(/Search a movie/i)).toBeInTheDocument();
+  // });
+
+  // it ('should NOT show search instructions when something has been typed', () => {
+  //   let component;
+  //   act(() => {
+  //     component = renderer.create(<Search />);
+  //   });
+  //   const instance = component.root;
+  //   const input = instance.findByType('input');
+  //   expect(instance.findAllByType('p').length).toBe(1);
+  //   input.props.onChange({target: { value: 'avengers' }});
+  //   expect(instance.findAllByType('p').length).toBe(0);
+  // });
 
 });
