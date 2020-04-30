@@ -8,23 +8,17 @@ exports[`Movie component should match snapshot (when there are movies) 1`] = `
     <div
       className="singleMovie"
     >
-      <div
-        style={
-          Object {
-            "marginBottom": "30px",
-          }
-        }
-      >
+      <div>
         <span>
-          <p
+          <h5
             data-testid="title"
           >
-             
             Inception
-          </p>
+          </h5>
         </span>
         <img
           alt="movie post"
+          className="poster-img"
           src="http://image.tmdb.org/t/p/w200/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg"
           style={
             Object {
@@ -34,8 +28,10 @@ exports[`Movie component should match snapshot (when there are movies) 1`] = `
           }
         />
         <button
-          className="playlistButton"
+          className="playlistButton btn btn-outline-primary"
+          disabled={false}
           onClick={[Function]}
+          type="button"
         >
           Show Playlist
         </button>
@@ -44,23 +40,17 @@ exports[`Movie component should match snapshot (when there are movies) 1`] = `
     <div
       className="singleMovie"
     >
-      <div
-        style={
-          Object {
-            "marginBottom": "30px",
-          }
-        }
-      >
+      <div>
         <span>
-          <p
+          <h5
             data-testid="title"
           >
-             
             Titanic
-          </p>
+          </h5>
         </span>
         <img
           alt="movie post"
+          className="poster-img"
           src="http://image.tmdb.org/t/p/w200/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg"
           style={
             Object {
@@ -70,8 +60,10 @@ exports[`Movie component should match snapshot (when there are movies) 1`] = `
           }
         />
         <button
-          className="playlistButton"
+          className="playlistButton btn btn-outline-primary"
+          disabled={false}
           onClick={[Function]}
+          type="button"
         >
           Show Playlist
         </button>
