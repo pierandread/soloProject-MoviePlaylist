@@ -50,9 +50,9 @@ function Search() {
           onClick={submitSearch}
         />
       </form>
-
-      {!inputSearch && <p> Search a movie up here </p>}
-      {movies.length > 0 && <Movies movies={movies} />}
+      <div style={{overflow: 'auto', height: '75vh'}}>
+        {movies.length > 0 && <Movies movies={movies} />}
+      </div>
     </div>
   );
 }

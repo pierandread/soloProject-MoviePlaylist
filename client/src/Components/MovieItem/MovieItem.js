@@ -16,7 +16,7 @@ function MovieItem({ title, posterPath, date }) {
         <span>
           <p data-testid="title"> {title}</p>
         </span>
-        <img
+        <img className="poster-img"
           style={{ width: '200px', height: '300px' }}
           alt="movie post"
           src={
