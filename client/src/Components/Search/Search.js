@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import Movies from '../../Containers/MovieList/MovieList';
 import { getMovieList } from '../../Services/TMDBApi';
-import './Search.css';
 import iconSearch from '../../images/Search-512.webp';
+import './Search.css';
 
 function Search() {
   const [inputSearch, setInputSearch] = useState('');
   const [movies, setMovies] = useState([]);
-
-  const submitSearch = (e) => {
-    e.preventDefault();
-    search(inputSearch);
-  };
 
   const searchOnChange = (e) => {
     const input = e.target.value;
@@ -33,23 +28,22 @@ function Search() {
 
   return (
     <div className="Search">
-      <form onSubmit={submitSearch}>
-        <label>
-          Search:
+
+      <div className="input-icons">
+        <img
+            className="searchIcon"
+            alt=""
+            src={iconSearch}
+          />
           <input
             className="search"
             type="text"
+            placeholder="Search for your favorite movies here!"
             value={inputSearch}
             onChange={searchOnChange}
           />
-        </label>
-        <img
-          className="searchIcon"
-          alt=""
-          src={iconSearch}
-          onClick={submitSearch}
-        />
-      </form>
+      </div>
+
       <div style={{overflow: 'auto', height: '75vh'}}>
         {movies.length > 0 && <Movies movies={movies} />}
       </div>
