@@ -1,8 +1,6 @@
-import {theMovieDb} from './api-keys';
-
 export function getMovieList (keyword) {
   return fetchMethod (
-    `https://api.themoviedb.org/3/search/movie?api_key=${theMovieDb}&language=en-US&query=${encodeURIComponent(keyword)}&page=1&include_adult=false`
+    `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_theMovieDb}&language=en-US&query=${encodeURIComponent(keyword)}&page=1&include_adult=false`
   )
 }
 

@@ -9,7 +9,6 @@ import './Header.css';
 function Header() {
   const images=[{image: intro1},{image: intro2},{image: intro3},{image: intro4}]; 
   
-//width:"60vw",height:"70vh"
   return (
     <div className="header">
       <div style={{width:"452px",height:"283px"}}>
@@ -23,11 +22,6 @@ function Header() {
         /> 
       </div>
     </div>
-
-
-    // <div className="header">
-    //   <p className="intro">SEARCH YOUR FAVORITE MOVIES SOUNDTRACKS <br/> AND ADD THEM TO YOUR SPOTIFY ACCOUNT</p>
-    // </div>
   );
 }
 
