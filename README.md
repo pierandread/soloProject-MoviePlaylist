@@ -37,15 +37,15 @@
 
 ## Usage
 
-* `git clone`.
+* Clone this repo in your local environment using `git clone`.
 
 * Create the `.env` file in the client folder and add your MovieDb and Spotify API keys saving them as `REACT_APP_theMovieDb` and `REACT_APP_spotifyClientID` .
 
-* `cd /client`.
+* Go to the client folder `cd /client`.
 
 * `npm install` to begin dependencies installation.
 
-* `npm start`.
+* `npm start` to run it.
 
 
 ## Built with
